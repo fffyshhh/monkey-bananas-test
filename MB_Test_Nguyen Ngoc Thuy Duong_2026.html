@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MB_Test_NguyenNgocThuyDuong_2026 | Monkey & Bananas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:        #3BBFBF;
+    --teal-dark:   #2A9A9A;
+    --teal-deep:   #1C7A7A;
+    --teal-light:  #E6F7F7;
+    --teal-pale:   #F0FBFB;
+    --yellow:      #FFD84D;
+    --yellow-soft: #FFF6D6;
+    --white:       #FFFFFF;
+    --bg:          #FAFAFA;
+    --card:        #FFFFFF;
+    --text:        #1A2E2E;
+    --text-mid:    #3D5A5A;
+    --text-muted:  #7A9A9A;
+    --border:      #D4EEEE;
+    --shadow:      rgba(28,122,122,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: #FFFFFF;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    background: var(--teal-deep);
+    padding: 0 40px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-brand {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar-brand .monkey-icon {
+    width: 28px; height: 28px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+  }
+  .topbar-right {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 60%, #4DD9C8 100%);
+    padding: 60px 40px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -100px; top: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 60%; bottom: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(255,216,77,0.12);
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 42px;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-title span {
+    color: var(--yellow);
+  }
+  .hero-file {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 700;
+    margin-bottom: 28px;
+    font-family: 'Nunito', monospace;
+    letter-spacing: 0.3px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ─── NAV PILLS ─── */
+  .nav-wrap {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 40px;
+  }
+  .nav-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    padding: 12px 0;
+    overflow-x: auto;
+  }
+  .nav-pill {
+    flex-shrink: 0;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 7px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-pill:hover { background: var(--teal-light); color: var(--teal-deep); }
+  .nav-pill.active { background: var(--teal); color: white; }
+
+  /* ─── MAIN ─── */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    margin-top: 56px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-num {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--text);
+  }
+  .section-title span {
+    color: var(--teal);
+  }
+
+  /* ─── SUBSECTION ─── */
+  .subsection-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--teal-deep);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .subsection-title::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: var(--border);
+  }
+
+  /* ─── TABLES ─── */
+  .table-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 16px var(--shadow);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  thead tr {
+    background: var(--teal-deep);
+  }
+  thead th {
+    padding: 13px 16px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-align: left;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--teal-pale); }
+  tbody tr:nth-child(even) { background: #FAFEFE; }
+  tbody tr:nth-child(even):hover { background: var(--teal-pale); }
+  td {
+    padding: 11px 16px;
+    color: var(--text-mid);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  td:first-child {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .tag-no { color: var(--text-muted); font-style: italic; }
+  .tag-adapt {
+    display: inline-block;
+    background: #FFF6D6;
+    color: #A07800;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
+  .tag-cultural {
+    display: inline-block;
+    background: #E8F7FF;
+    color: #0077AA;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
+  .zh { font-size: 15px; color: var(--text); }
+  .letter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    background: var(--teal);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+  .viet-word {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--teal-deep);
+  }
+
+  /* ─── DESIGN BRIEF CARDS ─── */
+  .brief-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .brief-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .brief-card:hover {
+    box-shadow: 0 6px 24px var(--shadow);
+    transform: translateY(-2px);
+  }
+  .brief-card.full { grid-column: 1 / -1; }
+  .brief-card-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .brief-card-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--teal-deep);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .brief-card-body {
+    font-size: 13.5px;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* bullet list inside card */
+  .brief-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 4px;
+  }
+  .brief-list li {
+    display: flex;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--text-mid);
+    line-height: 1.55;
+  }
+  .brief-list li::before {
+    content: '›';
+    color: var(--teal);
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  /* ─── COLOUR PALETTE ─── */
+  .palette-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--shadow);
+    border: 1.5px solid var(--border);
+    width: 90px;
+  }
+  .swatch-chip { height: 52px; }
+  .swatch-info {
+    background: white;
+    padding: 6px 8px;
+  }
+  .swatch-name { font-size: 10px; font-weight: 800; color: var(--text); }
+  .swatch-hex { font-size: 9px; color: var(--text-muted); font-weight: 600; }
+
+  /* ─── LAYOUT PREVIEW ─── */
+  .layout-preview {
+    background: var(--teal-pale);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: flex-start;
+  }
+  .tile {
+    width: 58px; height: 66px;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .tile-letter { font-size: 24px; line-height: 1; }
+  .tile-word { font-size: 8px; font-weight: 700; margin-top: 3px; opacity: 0.8; }
+
+  /* ─── DO DON'T ─── */
+  .dd-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .dd-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .dd-head {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dd-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dd-item {
+    font-size: 12.5px;
+    color: var(--text-mid);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--teal-light);
+    display: flex;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .dd-item:last-child { border-bottom: none; }
+  .dd-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+
+  /* ─── FOOTER ─── */
+  .footer-divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light), transparent);
+    margin: 48px 0 32px;
+    border-radius: 2px;
+  }
+  .footer-block {
+    background: var(--teal-deep);
+    border-radius: 18px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-left {}
+  .footer-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+  .footer-email {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    color: var(--yellow);
+  }
+  .footer-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    font-style: italic;
+    max-width: 360px;
+    line-height: 1.6;
+    text-align: right;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner { animation: fadeUp 0.5s ease both; }
+  .main > * { animation: fadeUp 0.5s ease both; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .hero { padding: 40px 20px; }
+    .hero-title { font-size: 28px; }
+    .main { padding: 32px 20px 60px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .dd-row { grid-template-columns: 1fr; }
+    .topbar { padding: 0 20px; }
+    .nav-wrap { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="monkey-icon">🐒</div>
+    Monkey & Bananas
+  </div>
+  <div class="topbar-right">Candidate Test · 2026</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-chip">📄 Candidate Submission</div>
+    <div class="hero-title">Content Production<br><span>Assistant</span> Test</div>
+    <div class="hero-file">MB_Test_NguyenNgocThuyDuong_2026</div>
+    <div class="hero-tags">
+      <div class="hero-tag">Name: Nguyen Ngoc Thuy Duong</div>
+      <div class="hero-tag">Task 1 · Research, Translation & Cultural Adaptation</div>
+      <div class="hero-tag">Task 2 · Vietnamese Alphabet Poster Content</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <a href="#task1" class="nav-pill active">Task 1 – Translation</a>
+    <a href="#task2a" class="nav-pill">Task 2A – Vocabulary</a>
+    <a href="#task2b" class="nav-pill">Task 2B – Design Brief</a>
+    <a href="#submit" class="nav-pill">Submission</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ── TASK 1 ── -->
+  <div id="task1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Research, Translation <span>&</span> Cultural Adaptation</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:14%">English</th>
+            <th style="width:17%">Vietnamese</th>
+            <th style="width:10%">Mandarin</th>
+            <th style="width:13%">Pinyin</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>bowl</td>
+            <td>chén / bát</td>
+            <td class="zh">碗</td>
+            <td>wǎn</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>(large) bowl</td>
+            <td>tô / bát ô tô</td>
+            <td class="zh">大碗</td>
+            <td>dà wǎn</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>chopsticks</td>
+            <td>đôi đũa</td>
+            <td class="zh">筷子</td>
+            <td>kuài zi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>spoon</td>
+            <td>muỗng / thìa</td>
+            <td class="zh">勺子</td>
+            <td>sháo zi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>fork</td>
+            <td>nĩa / dĩa</td>
+            <td class="zh">叉子</td>
+            <td>chā zi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>knife</td>
+            <td>dao</td>
+            <td class="zh">刀</td>
+            <td>dāo</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>plate</td>
+            <td>dĩa / đĩa</td>
+            <td class="zh">盘子</td>
+            <td>pán zi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>glass</td>
+            <td>ly / cốc</td>
+            <td class="zh">杯子</td>
+            <td>bēi zi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>rice cooker</td>
+            <td>nồi cơm điện</td>
+            <td class="zh">电饭煲</td>
+            <td>diàn fàn bāo</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>(round) food tray</td>
+            <td>cái mâm</td>
+            <td class="zh">托盘 / 圆盘</td>
+            <td>tuō pán / yuán pán</td>
+            <td><span class="tag-adapt">Adaptation may be needed</span><br>
+              "Mâm" is a specific round tray used for family-style meals. While "托盘" is accurate, explaining it as a "family-style round tray" could be helpful in lessons about Vietnamese culture.</td>
+          </tr>
+          <tr>
+            <td>napkin</td>
+            <td>khăn giấy / khăn ăn</td>
+            <td class="zh">餐巾纸</td>
+            <td>cān jīn zhǐ</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>straw</td>
+            <td>ống hút</td>
+            <td class="zh">吸管</td>
+            <td>xī guǎn</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>rice</td>
+            <td>cơm</td>
+            <td class="zh">米饭</td>
+            <td>mǐ fàn</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>milk</td>
+            <td>sữa</td>
+            <td class="zh">牛奶</td>
+            <td>niú nǎi</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>Vietnamese noodle soup</td>
+            <td>phở</td>
+            <td class="zh">越南河粉</td>
+            <td>yuè nán hé fěn</td>
+            <td><span class="tag-cultural">Cultural consideration</span><br>
+              "Phở" is a specific Vietnamese dish. The Mandarin translation describes it ("Vietnamese rice noodles"). Teaching the loanword "phở" alongside the descriptive term would be most effective.</td>
+          </tr>
+          <tr>
+            <td>noodles</td>
+            <td>mì</td>
+            <td class="zh">面条</td>
+            <td>miàn tiáo</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+          <tr>
+            <td>Vietnamese baguette</td>
+            <td>bánh mì</td>
+            <td class="zh">越南法棍面包</td>
+            <td>yuè nán fǎ gùn miàn bāo</td>
+            <td><span class="tag-cultural">Cultural consideration</span><br>
+              Similar to phở, "bánh mì" is a specific Vietnamese dish. Teaching the loanword "bánh mì" alongside the descriptive Mandarin term is recommended.</td>
+          </tr>
+          <tr>
+            <td>cheese</td>
+            <td>phô mai</td>
+            <td class="zh">奶酪</td>
+            <td>nǎi lào</td>
+            <td class="tag-no">No adaptation needed.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── TASK 2A ── -->
+  <div id="task2a">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Vietnamese Alphabet <span>Poster Content</span></div>
+    </div>
+
+    <div class="subsection-title">Part A — Vocabulary Development (Southern Vietnamese Focus)</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:15%">Letter</th>
+            <th style="width:30%">Word</th>
+            <th>English Translation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="letter-badge">A</span></td>
+            <td><span class="viet-word">áo</span></td>
+            <td>shirt</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">Ă</span></td>
+            <td><span class="viet-word">ăn</span></td>
+            <td>to eat</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">Â</span></td>
+            <td><span class="viet-word">âm nhạc</span></td>
+            <td>music</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">B</span></td>
+            <td><span class="viet-word">bánh mì</span></td>
+            <td>Vietnamese baguette / bread</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">C</span></td>
+            <td><span class="viet-word">cá</span></td>
+            <td>fish</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">D</span></td>
+            <td><span class="viet-word">đi</span></td>
+            <td>to go / to walk</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">Đ</span></td>
+            <td><span class="viet-word">đàn</span></td>
+            <td>musical instrument (guitar)</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">E</span></td>
+            <td><span class="viet-word">em</span></td>
+            <td>younger sibling / child</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">Ê</span></td>
+            <td><span class="viet-word">ếch</span></td>
+            <td>frog</td>
+          </tr>
+          <tr>
+            <td><span class="letter-badge">G</span></td>
+            <td><span class="viet-word">gà</span></td>
+            <td>chicken</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── TASK 2B ── -->
+  <div id="task2b">
+    <div class="subsection-title" style="margin-top:40px;">Part B — Design Brief for Designer</div>
+
+    <div class="brief-grid">
+
+      <div class="brief-card full">
+        <div class="brief-card-icon">🎯</div>
+        <div class="brief-card-title">Project Description</div>
+        <div class="brief-card-body">( (I have done some researched and found the flash card device that is launched by Monkey and Bananas ) Electronic Vietnamese Alphabet Poster — a screen-free, visually rich learning tool designed to help heritage learners connect with their mother tongue in a modern Western home environment.</div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-icon">👶</div>
+        <div class="brief-card-title">Target Audience</div>
+        <div class="brief-card-body">Vietnamese-Chinese children aged <strong>3–7</strong> years old living overseas (heritage learners). Many speak Vietnamese at home but are not yet literate, or are just beginning to learn their mother tongue outside a Vietnamese-dominant environment.</div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-icon">✏️</div>
+        <div class="brief-card-title">Design Style</div>
+        <div class="brief-card-body">Modern, clean, and child-friendly. The aesthetic should feel <strong>warm and approachable</strong> rather than overly digital or rigid. A hand-drawn or soft illustrative style works best to create a sense of familiarity and comfort for young children.</div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-icon">🖌️</div>
+        <div class="brief-card-title">Illustration Style</div>
+        <div class="brief-card-body">Whimsical, friendly characters with simple shapes and expressive faces. Illustrations should reflect <strong>Southern Vietnamese culture</strong> (e.g., bánh mì for B, đi for D showing a child walking). Avoid generic or Northern-centric imagery.</div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-icon">🎨</div>
+        <div class="brief-card-title">Colour Tone</div>
+        <div class="brief-card-body" style="margin-bottom:14px;">Soft, pastel-based palette with occasional pops of brighter colour for interactive elements. Clean background so letters and illustrations stand out clearly.</div>
+        <div class="palette-row">
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#FFD94A;"></div>
+            <div class="swatch-info"><div class="swatch-name">Banana</div><div class="swatch-hex">#FFD94A</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#5CC8F5;"></div>
+            <div class="swatch-info"><div class="swatch-name">Sky</div><div class="swatch-hex">#5CC8F5</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#FFB3C6;"></div>
+            <div class="swatch-info"><div class="swatch-name">Blush</div><div class="swatch-hex">#FFB3C6</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#6EE2C0;"></div>
+            <div class="swatch-info"><div class="swatch-name">Mint</div><div class="swatch-hex">#6EE2C0</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#FF7A3D;"></div>
+            <div class="swatch-info"><div class="swatch-name">Tangerine</div><div class="swatch-hex">#FF7A3D</div></div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-chip" style="background:#FFF8F0;"></div>
+            <div class="swatch-info"><div class="swatch-name">Cream</div><div class="swatch-hex">#FFF8F0</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-card-icon">📐</div>
+        <div class="brief-card-title">Layout Ideas</div>
+        <ul class="brief-list">
+          <li>Each letter in its own clearly defined section — a rounded square or circular frame — making the layout easy to navigate.</li>
+          <li>Letters prominently displayed in a bold, easy-to-read font.</li>
+          <li>Each letter paired with a corresponding illustration + the Vietnamese word (Southern dialect) underneath.</li>
+        </ul>
+        <div class="layout-preview">
+          <div class="tile" style="background:#FFD94A; color:#1C4040;"><div class="tile-letter">A</div><div class="tile-word">áo</div></div>
+          <div class="tile" style="background:#5CC8F5; color:#1C4040;"><div class="tile-letter">Ă</div><div class="tile-word">ăn</div></div>
+          <div class="tile" style="background:#FFB3C6; color:#1C4040;"><div class="tile-letter">B</div><div class="tile-word">bánh mì</div></div>
+          <div class="tile" style="background:#6EE2C0; color:#1C4040;"><div class="tile-letter">C</div><div class="tile-word">cá</div></div>
+          <div class="tile" style="background:#FF7A3D; color:white;"><div class="tile-letter">Đ</div><div class="tile-word">đàn</div></div>
+          <div class="tile" style="background:#3BBFBF; color:white;"><div class="tile-letter">E</div><div class="tile-word">em</div></div>
+        </div>
+      </div>
+
+      <div class="brief-card full">
+        <div class="brief-card-icon">💡</div>
+        <div class="brief-card-title">Inspiration</div>
+        <div class="brief-card-body">Draw inspiration from modern Western educational products such as <strong>Melissa & Doug</strong> or <strong>Little People</strong> — where simplicity, friendly character design, and clarity create an engaging learning experience for young children.</div>
+      </div>
+
+      <div class="brief-card full">
+        <div class="brief-card-icon">🎯</div>
+        <div class="brief-card-title">Goal</div>
+        <div class="brief-card-body">To create a visually appealing, <strong>culturally authentic</strong> learning tool that helps overseas Vietnamese children connect with their heritage language in a way that feels natural and fits within a modern Western home environment.</div>
+      </div>
+
+    </div>
+
+    <!-- DO'S AND DON'TS -->
+    <div class="subsection-title" style="margin-top:32px;">Do's & Don'ts</div>
+    <div class="dd-row">
+      <div class="dd-card">
+        <div class="dd-head"><div class="dd-dot" style="background:#3BBFBF;"></div>Do ✅</div>
+        <div class="dd-item"><span class="dd-icon">✅</span>Use Southern Vietnamese spelling for all vocabulary (e.g. "bánh mì" not "bánh mỳ")</div>
+        <div class="dd-item"><span class="dd-icon">✅</span>Illustrations with joyful, approachable facial expressions</div>
+        <div class="dd-item"><span class="dd-icon">✅</span>Clear layout per tile: BIG LETTER + illustration + Vietnamese word</div>
+        <div class="dd-item"><span class="dd-icon">✅</span>Use fonts with full diacritics support (sắc, huyền, nặng, hỏi, ngã)</div>
+        <div class="dd-item"><span class="dd-icon">✅</span>Vary colours across tiles to avoid monotony</div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-head"><div class="dd-dot" style="background:#FF7A3D;"></div>Don't ❌</div>
+        <div class="dd-item"><span class="dd-icon">❌</span>Avoid Northern-centric imagery (e.g. áo dài Bắc, bún bò Hà Nội) for a Southern dialect poster</div>
+        <div class="dd-item"><span class="dd-icon">❌</span>No overly saturated or neon colours — must fit a Western home aesthetic</div>
+        <div class="dd-item"><span class="dd-icon">❌</span>Max 2 typefaces — don't mix too many fonts</div>
+        <div class="dd-item"><span class="dd-icon">❌</span>No type below 18pt for word labels — children aged 3–7 need legibility</div>
+        <div class="dd-item"><span class="dd-icon">❌</span>Illustrations only — no real-life photography</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUBMISSION ── -->
+  <div id="submit">
+    <div class="footer-divider"></div>
+    <div class="footer-block">
+      <div class="footer-left">
+        <div class="footer-label">Contact</div>
+        <div class="footer-email">thuyduongnn0112@gmail.com</div>
+      </div>
+      <div class="footer-note">
+        Thank you for taking the time to review my work. I spent 4–5 hours researching the brand, coding the layout, and learning Mandarin vocabulary. I truly appreciate the opportunity and would be excited to contribute to Monkey & Bananas.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<script>
+  // Active nav highlight on scroll
+  const pills = document.querySelectorAll('.nav-pill');
+  const sections = ['task1','task2a','task2b','submit'];
+  window.addEventListener('scroll', () => {
+    let current = sections[0];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    pills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
